@@ -1,0 +1,44 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Employee {
+  employeeNumber String   @id // Clave primaria
+  firstName      String
+  lastName       String
+  secondLastName String
+  rfc            String   @unique // RFC único
+  email          String   @unique
+  phoneNumber    String?
+
+  session        Session?
+
+  @@index([email]) // Índice en el email
+}
+
+model Session {
+  id                Int      @id @default(autoincrement()) // Clave primaria
+  employeeNumber    String   @unique // Relación 1 a 1 con el empleado
+  password          String
+  verificationEmail String   @unique
+  startTime         DateTime
+  endTime           DateTime?
+  verificationToken String   // Token de sesión
+
+  // Relación 1 a 1 con la tabla Employee
+  employee Employee @relation(fields: [employeeNumber], references: [employeeNumber])
+
+  @@index([verificationEmail]) // Índice para email
+  @@index([verificationToken]) // Índice para token de sesión
+}
