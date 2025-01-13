@@ -16,9 +16,9 @@ const Login = () => {
         e.preventDefault();
         setLoading(true);
         setError(null);
-    
+        const apiBaseUrl = typeof window !== 'undefined' ? window.location.origin : '';
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`, {
+            const response = await fetch(`${apiBaseUrl}/api/auth/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
