@@ -10,33 +10,40 @@ const Login = () => {
     const [error, setError] = useState<string | null>(null);
     const dispatch = useDispatch();
     const router = useRouter();
+    const [loading, setLoading] = useState(false);
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
-
+        setLoading(true);
+        setError(null);
+    
         try {
-            const response = await fetch('/api/auth/login', {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({ employeeNumber, password })
             });
-
-            const data = await response.json(); // Convertir la respuesta a JSON
-
+    
+            const data = await response.json();
+    
             if (response.ok) {
-                const { token } = data; // Extraer el token de los datos devueltos
-                dispatch(login({ token, employeeNumber })); // Guardar el token en Redux
-                router.push('/'); // Redirigir al dashboard después de un inicio de sesión exitoso
+                const { token } = data;
+                localStorage.setItem('token', token); // Opcional: Guardar en localStorage
+                dispatch(login({ token, employeeNumber }));
+                router.push('/');
             } else {
-                setError(data.message); // Mostrar el mensaje de error del servidor
+                setError(data.message || 'Error en el inicio de sesión.');
             }
         } catch (err) {
-            setError('Error en la conexión');
-            console.error(err);
+            setError('Error en la conexión al servidor.');
+            console.error('Error de conexión:', err);
+        } finally {
+            setLoading(false);
         }
     };
+    
 
     return (
         <Box maxW="lg" mx="auto" mt="20">
@@ -72,7 +79,7 @@ const Login = () => {
                         />
                     </FormControl>
 
-                    <Button type="submit" colorScheme="blue" width="full">
+                    <Button type="submit" colorScheme="blue" width="full" isLoading={loading}>
                         Iniciar sesión
                     </Button>
                 </Stack>
