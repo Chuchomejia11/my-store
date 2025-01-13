@@ -24,7 +24,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 return res.status(401).json({ message: 'Contraseña incorrecta' });
             }
 
-            // Verifica que la variable JWT_SECRET esté definida
             const jwtSecret = process.env.JWT_SECRET;
             if (!jwtSecret) {
                 return res.status(500).json({ message: 'Se requiere una clave secreta para generar el token' });
@@ -38,8 +37,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
             return res.status(200).json({ message: 'Inicio de sesión exitoso', token });
         } catch (error) {
-            console.error('Error en el login:', error);
-            return res.status(500).json({ message: 'Error en el servidor' });
+            console.error('Error en el login:', error); // Registro del error completo
+            return res.status(500).json({ message: 'Error en el servidor', error: (error instanceof Error ? error.message : 'Unknown error') });
         }
     } else {
         res.status(405).json({ message: 'Método HTTP no permitido' });
