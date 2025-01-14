@@ -6,39 +6,33 @@ import { DashboardHeader } from '@/components/structure/dashboardHeader/Dashboar
 import { LoadingCurtaing } from '@/components/informational/loadingCurtain/loadingCurtain';
 import { login } from '@/redux/slices/authSlice';
 import NavBarDesktop from '@/components/action/navBarDesktop/navBarDesktop';
-import { Box, Grid, GridItem, Text, useColorMode } from '@chakra-ui/react';
+import { Box, Grid, GridItem, Text, useBreakpointValue, useColorMode } from '@chakra-ui/react';
 import { Venta } from '@/types/types';
 import { GraphSalesWithPeriod } from '@/components/action/graphSales/graphSalesWithPeriod';
+import { SaleInformation } from '@/components/informational/saleInformation/saleInformation';
+import NavBarMobile from '@/components/navBarMobile/navBarMobile';
 
 export default function Home() {
     const apiBaseUrl = typeof window !== 'undefined' ? window.location.origin : '';
+    const isMobile = useBreakpointValue({ base: true, md: false });
     const router = useRouter();
     const { colorMode } = useColorMode();
     const dispatch = useDispatch();
     const userAuth = useSelector((state: RootState) => state.auth);
     const [ventas, setVentas] = useState<Venta[]>([]);
     const [loading, setLoading] = useState(false);
-    const [hasMore, setHasMore] = useState(true); // Control de si hay más páginas
+    const [hasMore, setHasMore] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
 
-    // Función para cargar las ventas de la API
     const fetchVentas = useCallback(async () => {
-        if (loading || !hasMore) return; // No hacer la consulta si ya estamos cargando o si no hay más datos
+        if (loading || !hasMore) return;
 
-        setLoading(true); // Cambiar estado a 'loading' cuando iniciamos la solicitud
-
+        setLoading(true);
         try {
             const response = await fetch(`${apiBaseUrl}/api/sales/all_sales?page=${currentPage}`);
             const data = await response.json();
 
-            // Verificar si la respuesta es un array o contiene un objeto con ventas
             if (Array.isArray(data.ventas)) {
-                // Filtramos para evitar duplicados
-                // setVentas((prevVentas) => {
-                //     const newVentas = data.filter((venta: Venta) => !prevVentas.some((v: Venta) => v.id === venta.id));
-                //     return [...prevVentas, ...newVentas];
-                // });
-
                 setVentas((prevVentas) => {
                     const newVentas = data.ventas.filter(
                         (venta: Venta) => !prevVentas.some((v: Venta) => v.id === venta.id)
@@ -72,7 +66,9 @@ export default function Home() {
 
     // Ejecutar la solicitud cuando cambie la página
     useEffect(() => {
-        fetchVentas(); // Solo se llama cuando currentPage cambia
+        if (currentPage > 0) {
+            fetchVentas();
+        }
     }, [currentPage]);
 
     // Hook para detectar cuando el usuario hace scroll cerca del final
@@ -122,13 +118,14 @@ export default function Home() {
     }, [dispatch, router, userAuth]);
 
     return (
-        <div>
+        <div role="main">
             <DashboardHeader />
             {userAuth.firstLogin && <LoadingCurtaing cargado={true} />}
-            <NavBarDesktop />
+            {userAuth.firstLogin && <LoadingCurtaing cargado={true} />}
+            {isMobile ? <NavBarMobile /> : <NavBarDesktop />}
             <Box p={4} marginLeft={{ base: '0px', sm: '0px', md: '250px', lg: '250px', xl: '250px' }}>
-                <Grid templateColumns={{ base: 'repeat(24, 1fr)', lg: 'repeat(12, 1fr)' }} gap={4}>
-                    <GridItem colSpan={{ base: 24, lg: 12 }} p={4}>
+                <Grid templateColumns= 'repeat(12, 1fr)' gap={4}>
+                    <GridItem colSpan ={12}  p={4}>
                         <Box
                             ref={boxRef}
                             overflowY="auto"
@@ -155,23 +152,15 @@ export default function Home() {
                                 }
                             }}
                         >
-                            <Box w='75%' mx='auto'>
-                            <GraphSalesWithPeriod />
+                            <Box w={{base:"100%", lg:"75%"}} mx="auto">
+                                <GraphSalesWithPeriod />
                             </Box>
                             {ventas.length > 0
                                 ? ventas.map((venta) => (
-                                      <Box key={venta.id} borderWidth={1} borderRadius="md" p={4} my={2}>
-                                          <h2>Ventas</h2>
-                                          <ul>
-                                              {ventas.map((venta) => (
-                                                  <li key={venta.id}>
-                                                      <p>{venta.id}</p>
-                                                      <p>{venta.fecha}</p>
-                                                  </li>
-                                              ))}
-                                          </ul>
-                                      </Box>
-                                  ))
+                                    <Box key={venta.id} borderWidth={1} borderRadius="md" p={4} my={2}>
+                                        <SaleInformation venta={venta} />
+                                    </Box>
+                                ))
                                 : null}
                             {ventas.length === 0 && (
                                 <Text textAlign="center" color={colorMode === 'light' ? 'gray.500' : 'gray.400'}>

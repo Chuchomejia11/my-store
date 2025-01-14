@@ -42,3 +42,38 @@ export const getVentasPaginated = async (page: number, pageSize: number) => {
         }
     };
 };
+
+export const getProductosPaginated = async (page: number, pageSize: number) => {
+    const skip = (page - 1) * pageSize;
+    const take = pageSize;
+
+    const [productos, totalCount] = await Promise.all([
+        prisma.producto.findMany({
+            skip,
+            take,
+            orderBy: {
+                fechaAñadido: 'desc' // Ordenar por fecha de adición descendente
+            },
+            include: {
+                tipoProducto: true, // Información del tipo de producto
+                estatusProducto: true // Información del estatus del producto
+            }
+        }),
+        prisma.producto.count() // Contar el total de productos
+    ]);
+
+    const totalPages = Math.ceil(totalCount / pageSize);
+    const hasNextPage = page < totalPages;
+    const hasPreviousPage = page > 1;
+
+    return {
+        productos,
+        pagination: {
+            totalCount,
+            totalPages,
+            currentPage: page,
+            hasNextPage,
+            hasPreviousPage
+        }
+    };
+};

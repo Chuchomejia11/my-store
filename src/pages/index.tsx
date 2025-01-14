@@ -6,13 +6,16 @@ import { DashboardHeader } from '@/components/structure/dashboardHeader/Dashboar
 import { LoadingCurtaing } from '@/components/informational/loadingCurtain/loadingCurtain';
 import { login } from '@/redux/slices/authSlice';
 import NavBarDesktop from '@/components/action/navBarDesktop/navBarDesktop';
-import { Box, Grid, GridItem } from '@chakra-ui/react';
-import { GraphSalesWithPeriod } from '@/components/action/graphSales/graphSalesWithPeriod';
+import { Box, Grid, GridItem, useBreakpointValue } from '@chakra-ui/react';
+import { GraphSales } from '@/components/action/graphSales/graphSales';
+import NavBarMobile from '@/components/navBarMobile/navBarMobile';
+import { ProductsCard } from '@/components/action/productsCard/productsCadr';
 
 export default function Home() {
     const router = useRouter();
     const dispatch = useDispatch();
     const userAuth = useSelector((state: RootState) => state.auth);
+    const isMobile = useBreakpointValue({ base: true, md: false });
 
     useEffect(() => {
         if (!userAuth.token) {
@@ -34,15 +37,17 @@ export default function Home() {
         <div role="main">
             <DashboardHeader />
             {userAuth.firstLogin && <LoadingCurtaing cargado={true} />}
-            <NavBarDesktop />
+            {isMobile ? <NavBarMobile /> : <NavBarDesktop />}
             <Box
                 p={4}
                 marginLeft={{ base: '0px', sm: '0px', md: '250px', lg: '250px', xl: '250px' }}
-                display={{ base: 'none', md: 'block' }}
             >
-                <Grid templateColumns={{ base: "repeat(24, 1fr)", lg: "repeat(12, 1fr)" }} gap={4}>
-                    <GridItem colSpan={{ base: 20, lg: 8 }} colStart={{ base: 3, lg: 3 }} p={4}>
-                        <GraphSalesWithPeriod />
+                <Grid templateColumns= 'repeat(12, 1fr)' gap={4}>
+                    <GridItem colSpan={{ base: 12, lg: 8 }}  p={4}>
+                        <GraphSales />
+                    </GridItem>
+                    <GridItem colSpan={{ base: 12, lg: 4 }}  p={4}>
+                        <ProductsCard />
                     </GridItem>
                 </Grid>
             </Box>

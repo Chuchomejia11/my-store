@@ -114,7 +114,7 @@ async function main() {
 }
 
 // Llamar a la función principal para ejecutar el seeder
-main()
+await main()
     .catch((e) => {
         throw e;
     })
@@ -123,6 +123,39 @@ main()
     });
 
 // Función para insertar ventas aleatorias
+async function seedProductos() {
+    const tipoProductos = await prisma.tipoProducto.findMany();
+    const estatusProductos = await prisma.estatusProducto.findMany();
+
+    for (let i = 0; i < 50; i++) {
+        const randomTipoProducto = tipoProductos[Math.floor(Math.random() * tipoProductos.length)];
+        const randomEstatusProducto = estatusProductos[Math.floor(Math.random() * estatusProductos.length)];
+
+        await prisma.producto.create({
+            data: {
+                name: faker.commerce.productName(),
+                tipoProductoId: randomTipoProducto.id,
+                precioSugerido: faker.number.int({ min: 100, max: 1000 }),
+                precioTienda: faker.number.int({ min: 50, max: 900 }),
+                fechaAñadido: faker.date.past({ years: 1 }),
+                estatusProductoId: randomEstatusProducto.id,
+                estatus: 'Disponible'
+            }
+        });
+    }
+
+    console.log('Productos insertados correctamente.');
+}
+
+await seedProductos()
+    .catch((e) => {
+        throw e;
+    })
+    .finally(async () => {
+        await prisma.$disconnect();
+    });
+
+
 async function seedVentas() {
     const productos = await prisma.producto.findMany();
     const empleados = await prisma.employee.findMany();
@@ -157,7 +190,7 @@ async function seedVentas() {
     console.log('Ventas insertadas correctamente.');
 }
 
-seedVentas()
+await seedVentas()
     .then(async () => {
         const ventas = await prisma.venta.findMany();
         for (const venta of ventas) {

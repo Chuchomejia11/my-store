@@ -56,7 +56,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         });
 
         // Agrupar los datos según el campo calculado
-        const groupedData = salesData.reduce((acc: { [key: string]: number }, sale) => {
+        const groupedData = salesData.reduce((acc: { [key: string]: number }, sale: { fecha: string }) => {
             let groupKey: string;
 
             const saleDate = new Date(sale.fecha);

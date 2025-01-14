@@ -18,8 +18,13 @@
     "@prisma/client": "^6.2.1",
     "@reduxjs/toolkit": "^2.5.0",
     "@tailwindcss/forms": "^0.5.10",
+    "@types/axios": "^0.9.36",
     "autoprefixer": "^10.4.20",
+    "axios": "^1.7.9",
     "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
     "framer-motion": "^11.17.0",
     "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.2",
@@ -61,7 +66,7 @@
     "tailwindcss": "^3.4.17",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
-    "typescript": "^5",
+    "typescript": "^5.7.3",
     "webpackbar": "^7.0.0"
   }
 }

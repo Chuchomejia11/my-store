@@ -27,11 +27,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 fecha: 'asc'
             }
         });
-        const result = salesData.map((sale) => ({
+        const result = salesData.map((sale: { fecha: Date; _count: { id: number } }) => ({
             dia: sale.fecha.toISOString().split('T')[0], // Formateamos la fecha
             compras: sale._count.id // Número de registros por día
         }));
-        const groupedResult = result.reduce((acc: { dia: string; compras: number }[], curr) => {
+        const groupedResult = result.reduce((acc: { dia: string; compras: number }[], curr: { dia: string; compras: number }) => {
             const existing = acc.find((item) => item.dia === curr.dia);
             if (existing) {
                 existing.compras += curr.compras;
@@ -40,7 +40,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
             return acc;
         }, []);
-        groupedResult.sort((a, b) => new Date(a.dia).getTime() - new Date(b.dia).getTime());
+        groupedResult.sort((a: { dia: string; compras: number }, b: { dia: string; compras: number }) => new Date(a.dia).getTime() - new Date(b.dia).getTime());
         res.status(200).json(groupedResult);
     } catch (error) {
         console.error('Error al obtener los datos de ventas:', error);

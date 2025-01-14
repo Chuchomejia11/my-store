@@ -20,7 +20,7 @@ import { IoSettingsOutline } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 import { useRouter } from 'next/router';
-import { logout } from '@/redux/slices/authSlice';
+import { logout } from '@/redux/slices/authSlice';  
 
 export const DashboardHeader = () => {
     const router = useRouter();
@@ -35,37 +35,37 @@ export const DashboardHeader = () => {
     const isMovil = useBreakpointValue({ base: true, md: false });
 
     const handleLogout = async (e: React.FormEvent) => {
-            setLoading(true);
-            e.preventDefault();
-            setError(null);
-            const apiBaseUrl = typeof window !== 'undefined' ? window.location.origin : '';
-            try {
-                const response = await fetch(`${apiBaseUrl}/api/auth/logout`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ employeeNumber: userAuth.employeeNumber, token: userAuth.token }) 
-                });
-    
-                const data = await response.json();
-    
-                if (response.ok) {
-                    dispatch(logout());
-                    router.push('/login');
-                } else {
-                    setError(data.message || 'Error en el inicio de sesión.');
-                }
-            } catch (err) {
-                setError('Error en la conexión al servidor.');
-                console.error('Error de conexión:', err);
-            } finally {
-                setLoading(false);
+        setLoading(true);
+        e.preventDefault();
+        setError(null);
+        const apiBaseUrl = typeof window !== 'undefined' ? window.location.origin : '';
+        try {
+            const response = await fetch(`${apiBaseUrl}/api/auth/logout`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ employeeNumber: userAuth.employeeNumber, token: userAuth.token })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                dispatch(logout());
+                router.push('/login');
+            } else {
+                setError(data.message || 'Error en el inicio de sesión.');
             }
-        };
-        useEffect(() => {
-            console.error('Error en el logout:', error);
-        }, [error]);
+        } catch (err) {
+            setError('Error en la conexión al servidor.');
+            console.error('Error de conexión:', err);
+        } finally {
+            setLoading(false);
+        }
+    };
+    useEffect(() => {
+        console.error('Error en el logout:', error);
+    }, [error]);
 
     return (
         <Box
@@ -75,10 +75,12 @@ export const DashboardHeader = () => {
             h={{ base: '80px', sm: '90px', md: '100px', lg: '110px', xl: '120px' }} // Altura responsiva
         >
             <Flex justify="space-between" direction="row" h="100%" marginY={'auto'}>
-                {!isMovil && <Text fontSize={{ base: 'lg', sm: 'xl', md: '2xl', lg: '3xl' }} fontWeight="bold" marginY={'auto'}>
-                    Store 01
-                </Text>}
-                <Image src="/images/logo.svg" alt="Logo" width={20} height={20} background={'transparent'} />
+                {!isMovil && (
+                    <Text fontSize={{ base: 'lg', sm: 'xl', md: '2xl', lg: '3xl' }} fontWeight="bold" marginY={'auto'}>
+                        Store 01
+                    </Text>
+                )}
+                    <Image src="/images/logo.svg" alt="Logo" background={'transparent'} onClick={() => router.push('/')} />
                 <Box position={'relative'} right={''} w={'-moz-max-content'} display={'flex'} alignItems={'center'}>
                     <IconButton
                         aria-label="Configuración"
@@ -108,12 +110,7 @@ export const DashboardHeader = () => {
                         >
                             Cambiar a {colorMode === 'light' ? 'Modo Oscuro' : 'Modo Luminoso'}
                         </Button>
-                        <Button
-                            onClick={handleLogout}
-                            w="full"
-                            colorScheme="red"
-                            isLoading={loading}
-                        >
+                        <Button onClick={handleLogout} w="full" colorScheme="red" isLoading={loading}>
                             Cerrar Sesión
                         </Button>
                     </ModalBody>
