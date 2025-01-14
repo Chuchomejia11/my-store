@@ -1,108 +1,51 @@
-import Image from "next/image";
-
-import { Button } from "@chakra-ui/react";
-
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import { DashboardHeader } from '@/components/structure/dashboardHeader/DashboardHeader';
+import { LoadingCurtaing } from '@/components/informational/loadingCurtain/loadingCurtain';
+import { login } from '@/redux/slices/authSlice';
+import NavBarDesktop from '@/components/action/navBarDesktop/navBarDesktop';
+import { Box, Grid, GridItem } from '@chakra-ui/react';
+import { GraphSalesWithPeriod } from '@/components/action/graphSales/graphSalesWithPeriod';
 
 export default function Home() {
-  return (
-    <div
-      className={` grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]`}
-    >
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/pages/index.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-        <Button colorScheme="red" borderRadius={{base:'3xl',sm:'xl', md:'md', lg:'sm'}}> Hola con cackra</Button>
-        <Button colorScheme="blue" borderRadius={{base:'3xl',sm:'xl', md:'md', lg:'sm'}}> Hola con cackra</Button>
-        <Button colorScheme="green" borderRadius={{base:'3xl',sm:'xl', md:'md', lg:'sm'}}> Hola con cackra</Button>
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    const router = useRouter();
+    const dispatch = useDispatch();
+    const userAuth = useSelector((state: RootState) => state.auth);
+
+    useEffect(() => {
+        if (!userAuth.token) {
+            router.push('/login');
+        } else if (userAuth.firstLogin && userAuth.employeeNumber) {
+            setTimeout(() => {
+                dispatch(
+                    login({
+                        token: userAuth.token ?? '',
+                        employeeNumber: userAuth.employeeNumber ?? '',
+                        firstLogin: false
+                    })
+                );
+            }, 5000);
+        }
+    }, [userAuth.token, userAuth.firstLogin, userAuth.employeeNumber, dispatch, router]);
+
+    return (
+        <div role="main">
+            <DashboardHeader />
+            {userAuth.firstLogin && <LoadingCurtaing cargado={true} />}
+            <NavBarDesktop />
+            <Box
+                p={4}
+                marginLeft={{ base: '0px', sm: '0px', md: '250px', lg: '250px', xl: '250px' }}
+                display={{ base: 'none', md: 'block' }}
+            >
+                <Grid templateColumns={{ base: "repeat(24, 1fr)", lg: "repeat(12, 1fr)" }} gap={4}>
+                    <GridItem colSpan={{ base: 20, lg: 8 }} colStart={{ base: 3, lg: 3 }} p={4}>
+                        <GraphSalesWithPeriod />
+                    </GridItem>
+                </Grid>
+            </Box>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+    );
 }
