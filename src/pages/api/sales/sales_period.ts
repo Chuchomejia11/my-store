@@ -56,32 +56,37 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         });
 
         // Agrupar los datos según el campo calculado
-        const groupedData = salesData.reduce((acc: { [key: string]: number }, sale: { fecha: string }) => {
-            let groupKey: string;
-
-            const saleDate = new Date(sale.fecha);
-            switch (groupByField) {
-                case 'dia':
-                    groupKey = saleDate.toISOString().split('T')[0]; // Agrupamiento por día
-                    break;
-
-                case 'semana':
-                    const weekStart = new Date(saleDate);
-                    weekStart.setDate(saleDate.getDate() - saleDate.getDay());
-                    groupKey = weekStart.toISOString().split('T')[0]; // Agrupamiento por semana (primer día)
-                    break;
-
-                case 'mes':
-                    groupKey = `${saleDate.getFullYear()}-${(saleDate.getMonth() + 1).toString().padStart(2, '0')}`; // Agrupamiento por mes
-                    break;
-
-                default:
-                    groupKey = saleDate.toISOString();
-            }
-
-            acc[groupKey] = (acc[groupKey] || 0) + 1; // Contar ventas por grupo
-            return acc;
-        }, {});
+        const groupedData = salesData.reduce(
+            (acc: { [key: string]: number }, sale: { fecha: Date }) => {
+                let groupKey: string;
+        
+                const saleDate = sale.fecha; // `fecha` ya es un objeto `Date`
+                switch (groupByField) {
+                    case 'dia':
+                        groupKey = saleDate.toISOString().split('T')[0]; // Agrupamiento por día
+                        break;
+        
+                    case 'semana':
+                        const weekStart = new Date(saleDate);
+                        weekStart.setDate(saleDate.getDate() - saleDate.getDay());
+                        groupKey = weekStart.toISOString().split('T')[0]; // Agrupamiento por semana
+                        break;
+        
+                    case 'mes':
+                        groupKey = `${saleDate.getFullYear()}-${(saleDate.getMonth() + 1)
+                            .toString()
+                            .padStart(2, '0')}`; // Agrupamiento por mes
+                        break;
+        
+                    default:
+                        groupKey = saleDate.toISOString();
+                }
+        
+                acc[groupKey] = (acc[groupKey] || 0) + 1; // Contar ventas por grupo
+                return acc;
+            },
+            {} // Valor inicial
+        );
 
         // Convertir el resultado en un formato adecuado para la respuesta
         const result = Object.entries(groupedData).map(([key, count]) => ({

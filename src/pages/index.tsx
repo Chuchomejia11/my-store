@@ -6,10 +6,11 @@ import { DashboardHeader } from '@/components/structure/dashboardHeader/Dashboar
 import { LoadingCurtaing } from '@/components/informational/loadingCurtain/loadingCurtain';
 import { login } from '@/redux/slices/authSlice';
 import NavBarDesktop from '@/components/action/navBarDesktop/navBarDesktop';
-import { Box, Grid, GridItem, useBreakpointValue } from '@chakra-ui/react';
+import { Box, Grid, GridItem, useBreakpointValue, Button, Icon } from '@chakra-ui/react';
 import { GraphSales } from '@/components/action/graphSales/graphSales';
 import NavBarMobile from '@/components/navBarMobile/navBarMobile';
 import { ProductsCard } from '@/components/action/productsCard/productsCadr';
+import { MdPointOfSale } from 'react-icons/md';
 
 export default function Home() {
     const router = useRouter();
@@ -48,6 +49,19 @@ export default function Home() {
                     </GridItem>
                     <GridItem colSpan={{ base: 12, lg: 4 }}  p={4}>
                         <ProductsCard />
+                    </GridItem>
+                    <GridItem colSpan={12}  p={4} margin={'auto'}>
+                    
+                        <Button
+                            height="140px"
+                            width="120px"
+                            flexDirection="column"
+                            onClick={() => router.push('/go-sales')}
+                            colorScheme="teal"
+                        >
+                            <Icon as={MdPointOfSale} boxSize={6} />
+                            Registrar venta
+                        </Button>
                     </GridItem>
                 </Grid>
             </Box>

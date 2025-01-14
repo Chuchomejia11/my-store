@@ -19,7 +19,7 @@ const NavBarMobile = () => {
         { name: 'Dashboard', icon: FaHome, path: '/' },
         { name: 'Historial', icon: FaChartBar, path: '/sale-history' },
         { name: 'Invetario', icon: FaBoxesStacked, path: '/wh-products'},
-        { name: 'Venntas', icon: MdPointOfSale, path: '/go-sales'},
+        { name: 'Hacer venta', icon: MdPointOfSale, path: '/go-sales'},
     ];
 
     return (

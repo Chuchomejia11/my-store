@@ -20,7 +20,7 @@ const NavBarDesktop = () => {
         { name: 'Dashboard', icon: FaHome, path: '/' },
         { name: 'Historial de ventas', icon: FaChartBar, path: '/sale-history' },
         { name: 'Invetario', icon: FaBoxesStacked, path: '/wh-products' },
-        { name: 'Venntas', icon: MdPointOfSale, path: '/go-sales' }
+        { name: 'Hacer venta', icon: MdPointOfSale, path: '/go-sales' }
     ];
 
     const baseMargin = { base: '80px', sm: '90px', md: '100px', lg: '110px', xl: '120px' };
