@@ -12,7 +12,6 @@ import {
     ModalOverlay,
     ModalContent,
     ModalHeader,
-    ModalCloseButton,
     ModalBody,
     useColorMode,
     Text
@@ -82,13 +81,9 @@ export const ProductUpdateForm = ({ productId, initialData }: ProductUpdateFormP
             if (response.status === 200) {
                 setLoading(false);
                 onOpen();
-                toast({
-                    title: 'Éxito',
-                    description: 'Producto actualizado correctamente.',
-                    status: 'success',
-                    duration: 5000,
-                    isClosable: true
-                });
+                setTimeout(() => {
+                    window.location.reload();
+                }, 5000);
             } else {
                 throw new Error('Error al actualizar el producto.');
             }
@@ -166,7 +161,13 @@ export const ProductUpdateForm = ({ productId, initialData }: ProductUpdateFormP
                             type="text"
                             name="precioSugerido"
                             value={formData.precioSugerido}
-                            onChange={handleChange}
+                            onChange={(e) => {
+                                const { value } = e.target;
+                                const regex = /^[0-9]*\.?[0-9]*$/;
+                                if (regex.test(value)) {
+                                    handleChange(e);
+                                }
+                            }}
                             bg={colorMode === 'dark' ? 'gray.700' : 'gray.100'}
                             focusBorderColor="teal.500"
                             placeholder="0.00"
@@ -174,14 +175,20 @@ export const ProductUpdateForm = ({ productId, initialData }: ProductUpdateFormP
                     </FormControl>
 
                     <FormControl isRequired mb={4}>
-                        <FormLabel>Precio Tienda</FormLabel>
+                        <FormLabel>Precio Tienda (MXN)</FormLabel>
                         <Input
-                            type="text"
+                            type="number"
                             name="precioTienda"
                             value={formData.precioTienda}
-                            onChange={handleChange}
                             bg={colorMode === 'dark' ? 'gray.700' : 'gray.100'}
                             focusBorderColor="teal.500"
+                            onChange={(e) => {
+                                const { value } = e.target;
+                                const regex = /^[0-9]*\.?[0-9]*$/;
+                                if (regex.test(value)) {
+                                    handleChange(e);
+                                }
+                            }}
                             placeholder="0.00"
                         />
                     </FormControl>
@@ -204,7 +211,6 @@ export const ProductUpdateForm = ({ productId, initialData }: ProductUpdateFormP
                 <ModalOverlay />
                 <ModalContent>
                     <ModalHeader>¡Producto actualizado con éxito!</ModalHeader>
-                    <ModalCloseButton />
                     <ModalBody>
                         <Box display="flex" justifyContent="center" alignItems="center">
                             <span

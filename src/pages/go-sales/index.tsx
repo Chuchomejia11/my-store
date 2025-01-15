@@ -426,7 +426,9 @@ export default function Home() {
                                 </Checkbox>
                                 <Checkbox
                                     isChecked={paymentMethod === 2} // 2 es para Tarjeta
-                                    onChange={() => setPaymentMethod(paymentMethod === 2 ? 0 : 2)} // Cambiar entre 2 y 0
+                                    onChange={() => {setPaymentMethod(paymentMethod === 2 ? 0 : 2)
+                                        setAmountPaid(parseFloat(totalPrice.toFixed(2)))
+                                    }} // Cambiar entre 2 y 0
                                     margin={2}
                                 >
                                     Tarjeta
