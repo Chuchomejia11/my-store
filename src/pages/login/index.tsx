@@ -103,7 +103,7 @@ const Login = () => {
                             </InputGroup>
                         </FormControl>
 
-                        <Button type="submit" colorScheme="blue" width="full" isLoading={loading}>
+                        <Button type="submit" colorScheme="teal" width="full" isLoading={loading}>
                             Iniciar sesión
                         </Button>
                     </Stack>
