@@ -21,17 +21,17 @@ export const LoadingCurtaing: React.FC<LoadingCurtaingProps> = ({ cargado }) => 
 
     const progressBarContainerStyle: React.CSSProperties = {
         width: '75%',
-        backgroundColor: darkMode ? '#24D7FF' : '#e0e0e0',
+        backgroundColor: darkMode ? '#4491a1' : '#e0e0e0',
         height: '20px',
         overflow: 'visible',
         borderRadius: '10px',
-        border: `5px solid ${darkMode ? '#24D7FF' : '#fff'}`,
+        border: `5px solid ${darkMode ? '#4491a1' : '#fff'}`,
         borderColor: darkMode ? '#1C9BFD' : '#fff'
     };
 
     const progressBarStyle: React.CSSProperties = {
         height: '100%',
-        backgroundColor: darkMode ? '#FEFEFEFE' : '#24D7FF',
+        backgroundColor: darkMode ? '#FEFEFEFE' : '#4491a1',
         overflow: 'visible',
         borderRadius: '10px'
     };
@@ -143,13 +143,13 @@ export const LoadingCurtaing: React.FC<LoadingCurtaingProps> = ({ cargado }) => 
 
     const startBoxAnimation = (currentProgress: number) => {
         const backgroundGradient1 = `linear-gradient(-40deg, ${
-            darkMode ? '#FEFEFEFE' : '#24D7FF'
+            darkMode ? '#FEFEFEFE' : '#4491a1'
         } ${currentProgress}%, transparent ${currentProgress}%)`;
         const backgroundGradient2 = `linear-gradient(40deg, ${
-            darkMode ? '#FEFEFEFE' : '#24D7FF'
+            darkMode ? '#FEFEFEFE' : '#4491a1'
         } ${currentProgress}%, transparent ${currentProgress}%)`;
         const backgroundGradient3 = `linear-gradient(0deg, ${
-            darkMode ? '#FEFEFEFE' : '#24D7FF'
+            darkMode ? '#FEFEFEFE' : '#4491a1'
         } ${currentProgress}%, transparent ${currentProgress}%)`;
         controlsBox.start({
             left: `${currentProgress}%`,
@@ -214,7 +214,7 @@ export const LoadingCurtaing: React.FC<LoadingCurtaingProps> = ({ cargado }) => 
                                     <path
                                         className="st0"
                                         d="M320,389l-56.2,78c-4.5,6.2-13.8,5.8-17.7-0.7L200,389H320z"
-                                        fill={darkMode ? '#FEFEFEFE' : '#24D7FF'}
+                                        fill={darkMode ? '#FEFEFEFE' : '#4491a1'}
                                     />
                                 </g>
                                 <g id="Outline">
