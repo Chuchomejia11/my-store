@@ -26,7 +26,7 @@ export const LoadingCurtaing: React.FC<LoadingCurtaingProps> = ({ cargado }) => 
         overflow: 'visible',
         borderRadius: '10px',
         border: `5px solid ${darkMode ? '#4491a1' : '#fff'}`,
-        borderColor: darkMode ? '#1C9BFD' : '#fff'
+        borderColor: darkMode ? '#58c2ba' : '#fff'
     };
 
     const progressBarStyle: React.CSSProperties = {
@@ -60,7 +60,7 @@ export const LoadingCurtaing: React.FC<LoadingCurtaingProps> = ({ cargado }) => 
         left: '0',
         width: '100%',
         height: '100%',
-        backgroundColor: darkMode ? '#111111' : '#1C9BFD',
+        backgroundColor: darkMode ? '#111111' : '#58c2ba',
         pointerEvents: 'none',
         zIndex: '9999',
         display: 'flex',
@@ -223,7 +223,7 @@ export const LoadingCurtaing: React.FC<LoadingCurtaingProps> = ({ cargado }) => 
                                         d="M460.1,393.8H316.5l-52.9,73.5c-4.2,5.8-13,5.5-16.7-0.7l-43.5-72.8H59.9c-11.6,0-21-9.4-21-21V69.5
                                     c0-11.6,9.4-21,21-21H460c11.6,0,21,9.4,21,21v303.3C481.1,384.4,471.7,393.8,460.1,393.8z"
                                         fill="none"
-                                        stroke={darkMode ? '#397a87' : '#FFF'}
+                                        stroke={darkMode ? '#58c2ba' : '#FFF'}
                                         strokeWidth="8"
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
