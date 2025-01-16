@@ -22,6 +22,8 @@ interface SaleInformationProps {
 
 export const SaleInformation: React.FC<SaleInformationProps> = ({ venta }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
+    console.log(typeof venta.ventas);
+    
     return (
         <Box borderWidth={1} borderRadius="md" p={4} mb={4}>
             <Text fontSize="lg" fontWeight="bold">
@@ -60,7 +62,7 @@ export const SaleInformation: React.FC<SaleInformationProps> = ({ venta }) => {
                             <Text>Tipo de Pago: {venta.tipoPago.name}</Text>
                             <Divider />
                             <Text fontWeight="bold">Productos Vendidos:</Text>
-                            {JSON.parse(venta.ventas).map(
+                            { (typeof venta.ventas == "string" ? JSON.parse(venta.ventas) : venta.ventas).map(
                                 (ventaProducto: { productoId: number; cantidad: number }, index: number) => (
                                     <Box key={index} borderWidth={1} borderRadius="md" p={2} w="100%">
                                         <Text color="gray.500">Producto ID: {ventaProducto.productoId}</Text>
