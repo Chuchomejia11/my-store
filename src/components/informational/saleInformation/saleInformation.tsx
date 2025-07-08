@@ -14,7 +14,22 @@ import {
     VStack,
     Divider
 } from '@chakra-ui/react';
-import { Venta } from '@/types/types';
+interface Venta {
+    fecha: string;
+    employeeNumber: string;
+    pago: number;
+    cambio: number;
+    descuento: number;
+    tipoPago: {
+        name: string;
+    };
+    ventas: { productoId: number; cantidad: number }[] | string;
+    employee?: {
+        firstName: string;
+        lastName: string;
+        secondLastName?: string;
+    };
+}
 
 interface SaleInformationProps {
     venta: Venta;

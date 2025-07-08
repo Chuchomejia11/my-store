@@ -1,20 +1,22 @@
 import type { NextConfig } from 'next';
-import { Configuration } from 'webpack';
+import type { Configuration } from 'webpack';
+import type { WebpackConfigContext } from 'next/dist/server/config-shared';
 
 const nextConfig: NextConfig = {
-    experimental: {
-        nextScriptWorkers: true
-    },
-    reactStrictMode: true,
-    webpack(config: Configuration, { dev }) {
-        if (dev) {
-            config.watchOptions = {
-                poll: 10000,
-                aggregateTimeout: 300 // Tiempo de espera para re-cargar
-            };
-        }
-        return config;
+  output: 'export',
+  experimental: {
+    nextScriptWorkers: true
+  },
+  reactStrictMode: true,
+  webpack(config: Configuration, context: WebpackConfigContext): Configuration {
+    if (context.dev) {
+      config.watchOptions = {
+        poll: 10000,
+        aggregateTimeout: 300
+      };
     }
+    return config;
+  }
 };
 
 export default nextConfig;

@@ -21,29 +21,29 @@ export const LoadingCurtaing: React.FC<LoadingCurtaingProps> = ({ cargado }) => 
 
     const progressBarContainerStyle: React.CSSProperties = {
         width: '75%',
-        backgroundColor: darkMode ? '#4491a1' : '#e0e0e0',
+        backgroundColor: darkMode ? '#ED330C' : '#e0e0e0',
         height: '20px',
         overflow: 'visible',
         borderRadius: '10px',
-        border: `5px solid ${darkMode ? '#4491a1' : '#fff'}`,
-        borderColor: darkMode ? '#58c2ba' : '#fff'
+        border: `5px solid ${darkMode ? '#ED330C' : '#fff'}`,
+        borderColor: darkMode ? '#1565C0' : '#fff'
     };
 
     const progressBarStyle: React.CSSProperties = {
         height: '100%',
-        backgroundColor: darkMode ? '#FEFEFEFE' : '#4491a1',
+        backgroundColor: darkMode ? '#FEFEFEFE' : '#ED330C',
         overflow: 'visible',
         borderRadius: '10px'
     };
 
-    const imageBoxStyle: React.CSSProperties = {
-        position: 'relative',
-        marginTop: '-105px',
-        marginLeft: '-55px',
-        height: '75px',
-        width: '94px',
-        borderRadius: '10%'
-    };
+    // const imageBoxStyle: React.CSSProperties = {
+    //     position: 'relative',
+    //     marginTop: '-105px',
+    //     marginLeft: '-55px',
+    //     height: '75px',
+    //     width: '94px',
+    //     borderRadius: '10%'
+    // };
 
     const logoStyle: React.CSSProperties = {
         width: '75%',
@@ -60,7 +60,7 @@ export const LoadingCurtaing: React.FC<LoadingCurtaingProps> = ({ cargado }) => 
         left: '0',
         width: '100%',
         height: '100%',
-        backgroundColor: darkMode ? '#111111' : '#58c2ba',
+        backgroundColor: darkMode ? '#111111' : '#1565C0',
         pointerEvents: 'none',
         zIndex: '9999',
         display: 'flex',
@@ -143,13 +143,13 @@ export const LoadingCurtaing: React.FC<LoadingCurtaingProps> = ({ cargado }) => 
 
     const startBoxAnimation = (currentProgress: number) => {
         const backgroundGradient1 = `linear-gradient(-40deg, ${
-            darkMode ? '#FEFEFEFE' : '#4491a1'
+            darkMode ? '#FEFEFEFE' : '#ED330C'
         } ${currentProgress}%, transparent ${currentProgress}%)`;
         const backgroundGradient2 = `linear-gradient(40deg, ${
-            darkMode ? '#FEFEFEFE' : '#4491a1'
+            darkMode ? '#FEFEFEFE' : '#ED330C'
         } ${currentProgress}%, transparent ${currentProgress}%)`;
         const backgroundGradient3 = `linear-gradient(0deg, ${
-            darkMode ? '#FEFEFEFE' : '#4491a1'
+            darkMode ? '#FEFEFEFE' : '#ED330C'
         } ${currentProgress}%, transparent ${currentProgress}%)`;
         controlsBox.start({
             left: `${currentProgress}%`,
@@ -189,7 +189,7 @@ export const LoadingCurtaing: React.FC<LoadingCurtaingProps> = ({ cargado }) => 
         <motion.div style={mainCaontainerStyle} animate={controlsMainContainer}>
             <motion.div style={progressBarContainerStyle} animate={controlsContainer}>
                 <motion.div style={{ ...progressBarStyle, width: '0%' }} animate={controls} />
-                <motion.div style={{ ...imageBoxStyle }} animate={controlsBox}>
+                {/* <motion.div style={{ ...imageBoxStyle }} animate={controlsBox}>
                     <div
                         style={{
                             position: 'absolute',
@@ -214,7 +214,7 @@ export const LoadingCurtaing: React.FC<LoadingCurtaingProps> = ({ cargado }) => 
                                     <path
                                         className="st0"
                                         d="M320,389l-56.2,78c-4.5,6.2-13.8,5.8-17.7-0.7L200,389H320z"
-                                        fill={darkMode ? '#FEFEFEFE' : '#4491a1'}
+                                        fill={darkMode ? '#FEFEFEFE' : '#ED330C'}
                                     />
                                 </g>
                                 <g id="Outline">
@@ -223,7 +223,7 @@ export const LoadingCurtaing: React.FC<LoadingCurtaingProps> = ({ cargado }) => 
                                         d="M460.1,393.8H316.5l-52.9,73.5c-4.2,5.8-13,5.5-16.7-0.7l-43.5-72.8H59.9c-11.6,0-21-9.4-21-21V69.5
                                     c0-11.6,9.4-21,21-21H460c11.6,0,21,9.4,21,21v303.3C481.1,384.4,471.7,393.8,460.1,393.8z"
                                         fill="none"
-                                        stroke={darkMode ? '#58c2ba' : '#FFF'}
+                                        stroke={darkMode ? '#1565C0' : '#FFF'}
                                         strokeWidth="8"
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
@@ -234,7 +234,7 @@ export const LoadingCurtaing: React.FC<LoadingCurtaingProps> = ({ cargado }) => 
                             </g>
                         </svg>
                     </div>
-                </motion.div>
+                </motion.div> */}
             </motion.div>
             <motion.div style={{ ...logoStyle }} animate={controlsLogo}>
                 <picture>

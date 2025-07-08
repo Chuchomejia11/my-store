@@ -14,7 +14,7 @@ export const LoginHeader = () => {
     return (
         <Box as="header" p={4} bg={colorMode === 'light' ? 'gray.100' : 'gray.600'}>
             <Flex justify="space-between" align="center">
-                {!isMovil && <Text fontSize="xl" fontWeight="bold">Store 01</Text>}
+                {!isMovil && <Text fontSize="xl" fontWeight="bold">ASSA Admin</Text>}
                 <Image src="/images/logo.svg" alt="Logo" width={20} height={20} background={'transparent'} />
                 <IconButton
                     aria-label="Configuración"

@@ -29,7 +29,13 @@ import {
     useToast
 } from '@chakra-ui/react';
 import NavBarMobile from '@/components/navBarMobile/navBarMobile';
-import { Producto } from '@/types/types';
+
+type Producto = {
+    id: number;
+    name: string;
+    precioTienda: number;
+    // Agrega aquí otras propiedades si las necesitas
+};
 
 export default function Home() {
     const router = useRouter();

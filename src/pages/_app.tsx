@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     return (
         <>
             <Head>
-                <title>Store 01</title>
+                <title>ASSA Log Addmin</title>
                 <meta name="description" content="Todo lo que buscas lo encuentras aquí" />
                 <link rel="icon" href="/images/logo.svg" />
             </Head>

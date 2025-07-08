@@ -1,4 +1,81 @@
-// Definir tipos para los elementos relacionados
+// User authentication types
+export interface LoginCredentials {
+    email: string;
+    password: string;
+  }
+  
+  export interface User {
+    id: string;
+    email: string;
+    username?: string;
+    role: 'admin' | 'user';
+    createdAt: Date;
+    updatedAt: Date;
+  }
+  
+  export interface AuthState {
+    user: User | null;
+    isAuthenticated: boolean;
+    isLoading: boolean;
+    error: string | null;
+  }
+  
+  // Form types
+  export interface LoginFormData {
+    emailOrUsername: string;
+    password: string;
+  }
+  
+  export interface LoginFormErrors {
+    emailOrUsername?: string;
+    password?: string;
+    general?: string;
+  }
+  
+  // API response types
+  export interface ApiResponse<T = unknown> {
+    success: boolean;
+    data?: T;
+    message?: string;
+    error?: string;
+  }
+  
+  export interface LoginResponse {
+    user: User;
+    token: string;
+    refreshToken: string;
+  }
+  
+  // Component prop types
+  export interface LoginFormProps {
+    onSubmit: (credentials: LoginCredentials) => Promise<void>;
+    isLoading?: boolean;
+    error?: string | null;
+  }
+  
+  export interface InputFieldProps {
+    label: string;
+    type: 'text' | 'email' | 'password';
+    placeholder: string;
+    value: string;
+    onChange: (value: string) => void;
+    error?: string;
+    required?: boolean;
+    disabled?: boolean;
+  }
+  
+  // Event handler types
+  export type FormSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => void;
+  export type InputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => void;
+  export type ButtonClickHandler = (event: React.MouseEvent<HTMLButtonElement>) => void;
+  
+  // Utility types
+  export type Optional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
+  export type RequiredFields<T, K extends keyof T> = T & Required<Pick<T, K>>;
+
+
+
+  // Definir tipos para los elementos relacionados
 export interface Producto {
     id: number;
     name: string;

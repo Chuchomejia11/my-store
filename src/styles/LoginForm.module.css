@@ -1,0 +1,204 @@
+.formContainer {
+    position: absolute;
+    width: 371px;
+    top: 174px;
+    left: 892px;
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+  }
+  
+  .formContent {
+    padding: 0;
+  }
+  
+  .formTitle {
+    font-family: 'Poppins', Helvetica;
+    font-weight: 500;
+    color: black;
+    font-size: 30px;
+    line-height: normal;
+    margin-bottom: 73px;
+    margin: 0 0 73px 0;
+  }
+  
+  .inputGroup {
+    margin-bottom: 38px;
+  }
+  
+  .passwordGroup {
+    margin-bottom: 21px;
+  }
+  
+  .inputWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .inputIcon {
+    position: absolute;
+    left: 16px;
+    width: 20px;
+    height: 20px;
+    color: #90a4ae;
+    z-index: 1;
+  }
+  
+  .input {
+    width: 100%;
+    height: 62px;
+    background-color: #e3f2fd;
+    border-radius: 8px;
+    padding: 20px 26px 20px 50px;
+    font-family: 'Poppins', Helvetica;
+    font-size: 15px;
+    border: none;
+    outline: none;
+    transition: all 0.2s ease;
+  }
+  
+  .input::placeholder {
+    color: #90a4ae;
+  }
+  
+  .input:focus {
+    background-color: #bbdefb;
+    box-shadow: 0 0 0 2px rgba(21, 101, 192, 0.2);
+  }
+  
+  .input:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
+  .passwordInput {
+    padding-right: 60px;
+  }
+  
+  .passwordToggle {
+    position: absolute;
+    right: 16px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+  }
+  
+  .passwordToggle:hover:not(:disabled) {
+    background-color: rgba(21, 101, 192, 0.1);
+  }
+  
+  .passwordToggle:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  
+  .passwordToggleIcon {
+    width: 20px;
+    height: 20px;
+    color: #90a4ae;
+  }
+  
+  .errorMessage {
+    color: #ef4444;
+    font-size: 14px;
+    margin-top: 4px;
+  }
+  
+  .generalError {
+    margin-bottom: 16px;
+  }
+  
+  .generalErrorText {
+    color: #ef4444;
+    font-size: 14px;
+    text-align: center;
+  }
+  
+  .forgotPassword {
+    text-align: right;
+    margin-bottom: 41px;
+  }
+  
+  .forgotPasswordLink {
+    font-family: 'Poppins', Helvetica;
+    font-weight: 400;
+    color: #b0b0b0;
+    font-size: 13px;
+    line-height: normal;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  
+  .forgotPasswordLink:hover {
+    color: #90a4ae;
+  }
+  
+  .buttonContainer {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .submitButton {
+    width: 180px;
+    height: 59px;
+    background-color: #1565c0;
+    border-radius: 9px;
+    box-shadow: 0px 4px 61px rgba(77, 71, 195, 0.4);
+    font-family: 'Poppins', Helvetica;
+    font-weight: 500;
+    color: white;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .submitButton:hover:not(:disabled) {
+    background-color: #1976d2;
+    transform: translateY(-1px);
+    box-shadow: 0px 6px 71px rgba(77, 71, 195, 0.5);
+  }
+  
+  .submitButton:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: 0px 2px 41px rgba(77, 71, 195, 0.3);
+  }
+  
+  .submitButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+  
+  @media (max-width: 768px) {
+    .formContainer {
+      position: relative;
+      width: 90%;
+      max-width: 371px;
+      top: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0 auto;
+    }
+    
+    .formTitle {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .inputGroup {
+      margin-bottom: 24px;
+    }
+    
+    .passwordGroup {
+      margin-bottom: 16px;
+    }
+    
+    .forgotPassword {
+      margin-bottom: 30px;
+    }
+  }

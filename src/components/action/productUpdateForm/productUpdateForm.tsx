@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import {
     Box,
     FormControl,
@@ -13,17 +13,14 @@ import {
     ModalContent,
     ModalHeader,
     ModalBody,
-    useColorMode,
-    Text
+    useColorMode
 } from '@chakra-ui/react';
-import { Producto } from '@/types/types';
 
 type ProductUpdateFormProps = {
     productId: number;
-    initialData: Producto;
 };
 
-export const ProductUpdateForm = ({ productId, initialData }: ProductUpdateFormProps) => {
+export const ProductUpdateForm = ({ productId }: ProductUpdateFormProps) => {
     const apiBaseUrl = typeof window !== 'undefined' ? window.location.origin : '';
     const [formData, setFormData] = useState({
         name: '',
@@ -38,17 +35,7 @@ export const ProductUpdateForm = ({ productId, initialData }: ProductUpdateFormP
     const toast = useToast();
     const { isOpen, onOpen, onClose } = useDisclosure();
 
-    useEffect(() => {
-        if (initialData) {
-            setFormData({
-                name: initialData.name || '',
-                tipoProductoId: initialData.tipoProductoId?.toString() || '1',
-                precioSugerido: initialData.precioSugerido?.toString() || '',
-                precioTienda: initialData.precioTienda?.toString() || '',
-                estatus: initialData.estatus || ''
-            });
-        }
-    }, [initialData]);
+
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
@@ -103,10 +90,7 @@ export const ProductUpdateForm = ({ productId, initialData }: ProductUpdateFormP
     return (
         <Box mx="auto" p={4} bg={colorMode === 'dark' ? 'gray.800' : 'white'} borderRadius="md" boxShadow="lg">
             <Box textAlign="center" mb={4}>
-                <h2>{initialData.name}</h2>
-                <Text fontSize="lg" color="gray.500">
-                    producto agregado el {new Date(initialData.fechaAñadido).toLocaleDateString()}
-                </Text>
+                
             </Box>
             <form onSubmit={handleSubmit}>
                 <Box display="grid" gridTemplateColumns={{ base: '1fr', md: 'repeat(3, 1fr)' }} gap={4}>

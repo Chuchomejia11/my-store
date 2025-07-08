@@ -77,7 +77,7 @@ export const DashboardHeader = () => {
             <Flex justify="space-between" direction="row" h="100%" marginY={'auto'}>
                 {!isMovil && (
                     <Text fontSize={{ base: 'lg', sm: 'xl', md: '2xl', lg: '3xl' }} fontWeight="bold" marginY={'auto'}>
-                        Store 01
+                        ASSA Admin
                     </Text>
                 )}
                     <Image src="/images/logo.svg" alt="Logo" background={'transparent'} onClick={() => router.push('/')} />
