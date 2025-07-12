@@ -22,7 +22,7 @@ export const GraphSalesWithPeriod: React.FC = () => {
             try {
                 const response = await fetch(`${apiBaseUrl}/api/sales/sales_period?period=${period}`);
                 if (!response.ok) {
-                    throw new Error('Error al obtener los datos de ventas');
+                    throw new Error('Error al obtener los datos.');
                 }
                 const data = await response.json();
                 setSalesData(data);

@@ -17,7 +17,6 @@ interface Product {
 }
 
 export const ProductsCard: React.FC = () => {
-    const apiBaseUrl = typeof window !== 'undefined' ? window.location.origin : '';
     const { colorMode } = useColorMode();
     const [products, setProducts] = useState<Product[]>([]);
     const [loading, setLoading] = useState(false);
@@ -28,16 +27,15 @@ export const ProductsCard: React.FC = () => {
         setLoading(true);
         setError(null);
         try {
-            const response = await fetch(`${apiBaseUrl}/api/products/products?page=1&limit=10`);
-            const data = await response.json();
-
-            // Verificar que `data.products` existe y es un array
-            console.log(data);
-            if (Array.isArray(data.productos)) {
-                setProducts((prev) => [...prev, ...data.productos]);
-            } else {
-                setError("No se encontraron productos o la respuesta no tiene el formato esperado.");
-            }
+            // Datos de prueba hardcodeados
+            const mockProducts: Product[] = [
+            { id: 1, name: "Producto A", estatus: "Disponible" },
+            { id: 2, name: "Producto B", estatus: "Agotado" },
+            { id: 3, name: "Producto C" },
+            ];
+            // Simular retardo de red
+            await new Promise((resolve) => setTimeout(resolve, 500));
+            setProducts(mockProducts);
         } catch (err) {
             setError("Error loading products");
             console.error('Error loading products:', err);

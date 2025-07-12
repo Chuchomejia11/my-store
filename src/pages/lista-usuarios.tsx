@@ -8,10 +8,9 @@ import { LoadingCurtaing } from '@/components/informational/loadingCurtain/loadi
 import { NavBarDesktop } from '@/components/action/navBarDesktop/navBarDesktop';
 import NavBarMobile from '@/components/navBarMobile/navBarMobile';
 // import { GraphSales } from '@/components/action/graphSales/graphSales';
-import { Box, Grid, GridItem, useBreakpointValue } from '@chakra-ui/react';
+import { Box, Grid, useBreakpointValue } from '@chakra-ui/react';
 import { SidebarProvider } from '@/context/SidebarContext';
-import { RegisteredUsersCard } from '@/components/informational/registeredUsersCard/registeredUsersCard';
-import { NumberUsersButton } from '@/components/action/numberUsersbutton/numberUsersbutton';
+import Head from 'next/head';
 
 export default function Home() {
   const router = useRouter();
@@ -29,13 +28,16 @@ export default function Home() {
             p={4}
             transition="margin-left 0.3s ease"
             >
+              <Head>
+                <title>Lista de Usuarios | ASSA Admin</title>
+              </Head>
             <Grid templateColumns="repeat(12, 1fr)" gap={4}>
-                <GridItem colSpan={{ base: 12, lg: 8 }} p={4}>
+                {/* <GridItem colSpan={{ base: 12, lg: 8 }} p={4}>
                     <RegisteredUsersCard />
                 </GridItem>
                 <GridItem colSpan={{ base: 12, lg: 4 }} p={4}>
                     <NumberUsersButton />
-                </GridItem>
+                </GridItem> */}
             </Grid>
             </Box>
         </Box>

@@ -1,7 +1,8 @@
 import { useState, useCallback } from 'react';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { useDispatch } from 'react-redux';
 import { login } from '@/redux/slices/authSlice';
+
 export interface User {
   id: string;
   email: string;
@@ -23,7 +24,8 @@ export interface AuthState {
   error: string | null;
 }
 
-const API_URL = 'http://localhost:8000/api/v1/'; // Cambia si es necesario
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
 
 export const useAuth = () => {
   const dispatch = useDispatch();
@@ -35,43 +37,42 @@ export const useAuth = () => {
   });
 
   const loginApi = useCallback(async (credentials: LoginCredentials): Promise<void> => {
-    setAuthState(prev => ({
-      ...prev,
-      isLoading: true,
-      error: null,
+  setAuthState(prev => ({
+    ...prev,
+    isLoading: true,
+    error: null,
+  }));
+
+  try {
+    console.log('API_URL:', API_URL);
+    const loginRes = await axios.post(`${API_URL}auth/login`, credentials);
+    const token = loginRes.data.token;
+    const userData = loginRes.data.user;
+
+    dispatch(login({
+      token: token,
+      employeeNumber: "1",
+      firstLogin: true,
     }));
 
-    try {
-      // 1. Hacer login
-      const loginRes = await axios.post(`${API_URL}auth/login`, credentials);
-      const token = loginRes.data.token;
-      // 2. Obtener datos del usuario
-      // Usar los datos del usuario de la respuesta de login
-      const userData = loginRes.data.user;
-      dispatch(login({
-              token: token,
-              employeeNumber: "1",
-              firstLogin: true,
-            }));
-      // 3. Guardar en estado
-      setAuthState({
-        user: userData,
-        isAuthenticated: true,
-        isLoading: false,
-        error: null,
-      });
+    setAuthState({
+      user: userData,
+      isAuthenticated: true,
+      isLoading: false,
+      error: null,
+    });
 
-      // 4. Guardar token en localStorage
-      localStorage.setItem('authToken', token);
-    } catch (error: any) {
-      const message = error.response?.data?.message || 'Error al iniciar sesión.';
-      setAuthState(prev => ({
-        ...prev,
-        isLoading: false,
-        error: message,
-      }));
-    }
-  }, []);
+    localStorage.setItem('authToken', token);
+  } catch (error: unknown) {
+    const axiosError = error as AxiosError<{ message?: string }>;
+    const message = axiosError.response?.data?.message || 'Error al iniciar sesión.';
+    setAuthState(prev => ({
+      ...prev,
+      isLoading: false,
+      error: message,
+    }));
+  }
+}, [dispatch]);
 
   const logout = useCallback((): void => {
     setAuthState({

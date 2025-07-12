@@ -3,7 +3,7 @@ import { RootState } from '@/redux/store';
 import React from 'react';
 import { DashboardHeader } from '@/components/structure/dashboardHeader/DashboardHeader';
 import { LoadingCurtaing } from '@/components/informational/loadingCurtain/loadingCurtain';
-import NavBarDesktop from '@/components/action/navBarDesktop/navBarDesktop';
+import { NavBarDesktop } from '@/components/action/navBarDesktop/navBarDesktop';
 import { Box, Grid, GridItem,  useBreakpointValue} from '@chakra-ui/react';
 import NavBarMobile from '@/components/navBarMobile/navBarMobile';
 

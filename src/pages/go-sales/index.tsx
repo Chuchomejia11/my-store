@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { DashboardHeader } from '@/components/structure/dashboardHeader/DashboardHeader';
 import { LoadingCurtaing } from '@/components/informational/loadingCurtain/loadingCurtain';
 import { login } from '@/redux/slices/authSlice';
-import NavBarDesktop from '@/components/action/navBarDesktop/navBarDesktop';
+import { NavBarDesktop } from '@/components/action/navBarDesktop/navBarDesktop';
 import {
     Box,
     Grid,
@@ -75,10 +75,14 @@ export default function Home() {
         setLoading(true);
         setError(null);
         try {
-            const apiBaseUrl = typeof window !== 'undefined' ? window.location.origin : '';
-            const response = await fetch(`${apiBaseUrl}/api/products/products_for_sale`);
-            if (!response.ok) throw new Error('Error al cargar los productos.');
-            const data = await response.json();
+            // Datos de prueba hardcodeados
+            const data: Producto[] = [
+            { id: 1, name: 'Producto A', precioTienda: 100 },
+            { id: 2, name: 'Producto B', precioTienda: 200 },
+            { id: 3, name: 'Producto C', precioTienda: 300 }
+            ];
+            // Simula una espera de red
+            await new Promise((resolve) => setTimeout(resolve, 500));
             setProducts(data);
         } catch (err) {
             setError((err as Error).message || 'Error inesperado.');

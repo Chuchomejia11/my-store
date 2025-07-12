@@ -27,7 +27,7 @@ export const GraphSales: React.FC = () => {
             try {
                 const response = await fetch(`${apiBaseUrl}/api/sales/sales`);
                 if (!response.ok) {
-                    throw new Error('Error al obtener los datos de ventas');
+                    throw new Error('Error al obtener los datos.');
                 }
                 const data = await response.json();
                 setSalesData(data);
