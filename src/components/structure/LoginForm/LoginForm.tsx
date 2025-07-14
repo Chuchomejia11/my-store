@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux';
 import styles from '@/styles/LoginForm.module.css';
 import { RootState } from '@/redux/store';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 type LoginFormData = {
   emailOrUsername: string;
@@ -130,12 +131,12 @@ export const LoginForm: React.FC = () => {
 
           {/* Forgot password link */}
           <div className={styles.forgotPassword}>
-            <a
-              href="#"
+            <Link
+              href="/forgot-password"
               className={styles.forgotPasswordLink}
             >
               ¿Olvidaste tu contraseña?
-            </a>
+            </Link>
           </div>
 
           {/* Login button */}
