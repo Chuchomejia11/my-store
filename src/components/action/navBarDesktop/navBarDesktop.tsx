@@ -9,9 +9,13 @@ import {
   Flex,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React from "react";
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";
+import { useLogout } from '@/hooks/useLogout';
+import { useDispatch, useSelector} from "react-redux";
+import { RootState } from '@/redux/store';
+import { toggleNavbar } from "@/redux/slices/navBarSlice";
 
 const MotionBox = motion(Box);
 const MotionImage = motion(Image);
@@ -24,11 +28,13 @@ interface MenuItem {
 }
 
 export const NavBarDesktop = () => {
-  const { colorMode } = useColorMode();
   const router = useRouter();
-  const [isOpen, setIsOpen] = useState(true);
+  const dispatch = useDispatch();
+    const isOpen = useSelector((state: RootState) => state.navBar.navbarOpen);
+  const { colorMode } = useColorMode();
+  const logout = useLogout();
 
-  const toggleSidebar = () => setIsOpen(!isOpen);
+  const toggleSidebar = () => dispatch(toggleNavbar())
 
   const sidebarWidth = isOpen ? "316px" : "75px";
   const iconSrc = isOpen
@@ -91,7 +97,7 @@ export const NavBarDesktop = () => {
   const logoutItem = {
     label: "Cerrar sesión",
     iconSrc: "/images/icon-logout.svg",
-    onClick: () => console.log("Cerrar sesión"),
+    onClick: () => logout(),
   };
 
   const isActive = (path: string) => router.pathname === path;
@@ -115,6 +121,8 @@ export const NavBarDesktop = () => {
     : { bg: "gray.600", color: "teal.300" };
 
   const defaultColor = colorMode === "light" ? "#0D47A1" : "teal.300";
+
+  
 
   return (
     <MotionBox

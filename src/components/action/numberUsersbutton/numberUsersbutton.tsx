@@ -9,7 +9,10 @@ export const NumberUsersButton = () => {
             display="flex" 
             justifyContent="space-between" 
             alignItems="center"
-            p={1} borderRadius="xl" 
+            p={1} 
+            borderRadius="xl"
+            paddingRight={4} 
+            paddingLeft={4}
             overflow="hidden"  
             w={'100%'} 
             boxShadow="0px 20px 60px 0px rgba(86, 122, 176, 0.456)"

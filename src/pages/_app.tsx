@@ -7,7 +7,13 @@ import customTheme from '@/styles/theme';
 import { PersistGate } from 'redux-persist/integration/react';
 import Head from 'next/head';
 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { useState } from 'react';
+
 function MyApp({ Component, pageProps }: AppProps) {
+    // Crear el QueryClient solo una vez por sesión
+    const [queryClient] = useState(() => new QueryClient());
+
     return (
         <>
             <Head>
@@ -18,7 +24,9 @@ function MyApp({ Component, pageProps }: AppProps) {
             <Provider store={store}>
                 <PersistGate loading={null} persistor={persistor}>
                     <ChakraProvider theme={customTheme}>
-                        <Component {...pageProps} />
+                        <QueryClientProvider client={queryClient}>
+                            <Component {...pageProps} />
+                        </QueryClientProvider>
                     </ChakraProvider>
                 </PersistGate>
             </Provider>

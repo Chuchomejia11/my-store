@@ -181,3 +181,11 @@ export interface Egreso {
     employeeNumber: string;
     employee: Employee; // Relación con Employee
 }
+
+export type SearchField = 'no_sindical' | 'no_escalafon' | 'nombre' | 'nombre_rol' | 'correo';
+
+export interface FiltersState {
+  searchText: string;
+  selectedFields: SearchField[];
+  someOtherButtonFilter?: string; // puedes agregar más filtros si los botones lo requieren
+}

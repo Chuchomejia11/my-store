@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import { FiUser, FiLock, FiEye, FiEyeOff } from 'react-icons/fi';
 import { Button } from '@/components/action/button/Button';
 import { Card, CardContent } from '../Card/card';
@@ -6,11 +6,8 @@ import { Input } from '@/components/action/Input/input';
 import { useForm } from '@/hooks/useForm';
 import { useAuth } from '@/hooks/useAuth';
 import { validateLoginForm } from '@/utils/validation';
-import { useSelector } from 'react-redux';
 
 import styles from '@/styles/LoginForm.module.css';
-import { RootState } from '@/redux/store';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 type LoginFormData = {
@@ -28,10 +25,8 @@ const initialValues: LoginFormData = {
 };
 
 export const LoginForm: React.FC = () => {
-  const router = useRouter();
-  const userAuth = useSelector((state: RootState) => state.auth);
 
-  const { loginApi, isLoading, error} = useAuth();
+  const {  isAuthenticated,loginApi, isLoading, error} = useAuth();
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const handleSubmit = async (values: LoginFormData): Promise<void> => {
@@ -42,6 +37,7 @@ export const LoginForm: React.FC = () => {
     
     await loginApi(credentials);
   };
+
 
   const {
     values,
@@ -59,15 +55,10 @@ export const LoginForm: React.FC = () => {
     setShowPassword(!showPassword);
   };
 
-  useEffect(() => {
-        if (!userAuth.token) {
-            router.push('/login');
-        } else if (userAuth.firstLogin && userAuth.employeeNumber) {
-            router.push('/');
-        }
-    }, [userAuth.token, userAuth.firstLogin, userAuth.employeeNumber, router]);
+ 
 
   return (
+    <>
     <Card className={styles.formContainer}>
       <CardContent className={styles.formContent}>
         <h3 className={styles.formTitle}>
@@ -80,11 +71,11 @@ export const LoginForm: React.FC = () => {
             <div className={styles.inputWrapper}>
               <FiUser className={styles.inputIcon} />
               <Input
-                className={styles.input}
+                className={`${styles.input} ${styles.inputEmail}`}
                 placeholder="Correo o nombre de usuario"
                 value={values.emailOrUsername}
                 onChange={handleChange('emailOrUsername')}
-                disabled={isLoading || isSubmitting}
+                disabled={isLoading || isSubmitting ||  isAuthenticated}
               />
             </div>
             {errors.emailOrUsername && (
@@ -152,6 +143,7 @@ export const LoginForm: React.FC = () => {
         </form>
       </CardContent>
     </Card>
+    </>
   );
 };
 

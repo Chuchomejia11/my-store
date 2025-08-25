@@ -3,6 +3,7 @@ import type { Configuration } from 'webpack';
 import type { WebpackConfigContext } from 'next/dist/server/config-shared';
 
 const nextConfig: NextConfig = {
+  output: 'export',
   experimental: {
     nextScriptWorkers: true
   },

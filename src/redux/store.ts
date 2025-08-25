@@ -1,6 +1,8 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import authReducer from './slices/authSlice';
 import themeReducer from './slices/themeSlice';
+import navBarReducer from './slices/navBarSlice';
+import searchReducerm from './slices/searchSlice';
 import storage from 'redux-persist/lib/storage'; // Utiliza el almacenamiento local por defecto
 import { persistReducer, persistStore } from 'redux-persist';
 
@@ -13,6 +15,8 @@ const persistConfig = {
 const rootReducer = combineReducers({
     auth: authReducer,
     theme: themeReducer,
+    navBar: navBarReducer,
+    search: searchReducerm
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

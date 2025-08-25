@@ -50,14 +50,18 @@
     height: 62px;
     background-color: #e3f2fd;
     border-radius: 8px;
-    padding: 20px 26px 20px 50px;
+    /* padding: 20px 26px 20px 50px; */
     font-family: 'Poppins', Helvetica;
     font-size: 15px;
     border: none;
     outline: none;
     transition: all 0.2s ease;
   }
-  
+
+  .inputEmail {
+    padding: 20px 26px 20px 50px;
+  }
+
   .input::placeholder {
     color: #90a4ae;
   }
@@ -74,6 +78,7 @@
   
   .passwordInput {
     padding-right: 60px;
+    padding-left: 50px;
   }
   
   .passwordToggle {

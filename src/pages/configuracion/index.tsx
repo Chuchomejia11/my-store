@@ -10,9 +10,7 @@ import NavBarMobile from '@/components/navBarMobile/navBarMobile';
 // import { GraphSales } from '@/components/action/graphSales/graphSales';
 import { Box, Grid, GridItem, useBreakpointValue } from '@chakra-ui/react';
 import { SidebarProvider } from '@/context/SidebarContext';
-import { RegisteredUsersCard } from '@/components/informational/registeredUsersCard/registeredUsersCard';
-import { NumberUsersButton } from '@/components/action/numberUsersbutton/numberUsersbutton';
-import { UserStatusGauge } from '@/components/informational/userStatusGauge/userStatusGauge';
+import { UploadPassword } from '@/components/action/uploadPassword/uploadPassword';
 
 export default function Home() {
   const router = useRouter();
@@ -32,13 +30,9 @@ export default function Home() {
             width={'100%'}
             >
             <Grid templateColumns="repeat(12, 1fr)" gap={4} width={'100%'}>
-                <GridItem colSpan={{ base: 12, lg: 8 }} p={4}>
-                    <RegisteredUsersCard />
-                </GridItem>
-                <GridItem colSpan={{ base: 12, lg: 4 }} p={4}>
-                    <NumberUsersButton />
-                    <UserStatusGauge total={300} completed={240} />
-                </GridItem>
+              <GridItem colSpan={8} colStart={4}>
+                <UploadPassword />
+              </GridItem>
             </Grid>
             </Box>
         </Box>
