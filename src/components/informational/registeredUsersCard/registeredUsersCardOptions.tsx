@@ -10,8 +10,8 @@ import React from "react";
 
 const options = {
   Categoria: [
-    { label: "ESB", color: "#ED330C" },
-    { label: "Sob.", color: "#01346B" },
+    { label: "ESB", color: "#8B6D1B" },
+    { label: "Sob.", color: "#9EA7AA" },
   ],
   Apartado: [
     { label: "ESB A", color: "#ED330C" },

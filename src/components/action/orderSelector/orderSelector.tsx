@@ -35,7 +35,7 @@ export const OrderSelector = () => {
   };
 
   return (
-    <Box position="relative" width="124px">
+    <Box position="relative" width="fit-content">
       <Button
         variant="outline"
         borderWidth="1px"
@@ -54,7 +54,7 @@ export const OrderSelector = () => {
           zIndex="10"
           top="100%"
           left="0"
-          width="100%"
+          width="fit-content"
           bg="white"
           border="1px solid"
           borderColor="gray.200"

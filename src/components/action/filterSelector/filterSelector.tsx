@@ -5,8 +5,8 @@ import { clearFilters, toggleFilter } from '@/redux/slices/searchSlice';
 import { useState } from 'react';
 
 const filterOptions = {
-  'Categoría': ['ESB', 'Sob.'],
-  'Apartado': [ 'ESB A', 'Sob. A', 'ESB o Sob. B', '6x4'],
+  'Categoría': ['ESB.', 'Sob.'],
+  'Apartado': [ 'ESB. A', 'Sob. A', 'ESB o Sob. B', '6x4'],
   'Base o DVT': ['MEX', 'GDL', 'MTY','CUN', 'TIJ']
 };
 

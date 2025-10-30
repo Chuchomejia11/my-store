@@ -37,7 +37,7 @@ export default function Home() {
                 </GridItem>
                 <GridItem colSpan={{ base: 12, lg: 4 }} p={4}>
                     <NumberUsersButton />
-                    <UserStatusGauge total={300} completed={240} />
+                    <UserStatusGauge   />
                 </GridItem>
             </Grid>
             </Box>
